@@ -1,0 +1,48 @@
+{
+  "name": "HOKADIW Ubuntu Desktop + Docker",
+  "image": "mcr.microsoft.com/devcontainers/base:noble",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "version": "latest",
+      "moby": true,
+      "dockerDashComposeVersion": "v2"
+    }
+  },
+  "remoteUser": "vscode",
+  "containerEnv": {
+    "TZ": "Asia/Bangkok",
+    "LANG": "en_US.UTF-8",
+    "VNC_GEOMETRY": "1440x900"
+  },
+  "runArgs": [
+    "--shm-size=1g"
+  ],
+  "hostRequirements": {
+    "cpus": 2,
+    "memory": "4gb",
+    "storage": "16gb"
+  },
+  "forwardPorts": [
+    6080,
+    8080
+  ],
+  "portsAttributes": {
+    "6080": {
+      "label": "Ubuntu Desktop (noVNC)",
+      "onAutoForward": "openBrowser"
+    },
+    "8080": {
+      "label": "Docker / Web app",
+      "onAutoForward": "notify"
+    }
+  },
+  "postCreateCommand": "bash .devcontainer/install-desktop.sh",
+  "postStartCommand": "bash .devcontainer/start-desktop.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-azuretools.vscode-containers"
+      ]
+    }
+  }
+}
